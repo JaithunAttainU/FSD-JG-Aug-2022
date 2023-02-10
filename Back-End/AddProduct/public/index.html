@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+</head>
+
+<body>
+  <h4>List of Products</h4>
+  <div id="products-list">
+  </div>
+
+  <script>
+
+    const productListEle = document.getElementById('products-list')
+    async function getProducts() {
+
+      try {
+        const response = await fetch('/products')
+        const productsObj = await response.json()
+
+        const products = productsObj.products
+
+        // for (let index = 0; index < products.length; index++) {
+        //   const product = products[index];
+
+        //   const divProduct = document.createElement('div') //<div></div>
+        //   divProduct.innerText = product.name //<div>Pen</div>
+        //   productListEle.append(divProduct)
+        // }
+        productsObj.products.forEach(product => {
+          const divProduct = document.createElement('div') //<div></div>
+          divProduct.innerHTML = `<b>${product.name}</b>` //<div><b>Pen</b></div>
+          productListEle.append(divProduct)
+        });
+
+        console.log(productsObj.products)
+      } catch (err) {
+        console.log("Error Occured")
+      }
+
+
+
+      const requestPromise = fetch('/products')
+
+      requestPromise.then(() => { //fulfilled
+        console.log("Fulfilled")
+      }).catch(() => { //Reject
+        console.log("Rejected")
+      })
+    }
+
+    getProducts()
+  </script>
+</body>
+
+</html>
+<!-- 
+Promise = fetch('/products')
+Promise
+
+Fulfill
+Reject -->
